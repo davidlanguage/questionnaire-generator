@@ -1,6 +1,5 @@
 ﻿namespace QuestionnaireGenerator.Models
 {
-    
     public enum AffinityValues
     {
         DATA = 0,

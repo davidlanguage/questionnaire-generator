@@ -10,17 +10,28 @@ namespace QuestionnaireGenerator.Controllers
         [Route("")]
         public IActionResult Index(int id)
         {
-            /*
             UserData user = new UserData();
-            user.Id = 1;
-            user.Affinities.Add(1);
-            user.Affinities.Add(2);
-            user.Affinities.Add(3);
-            user.Affinities.Add(4);
-            user.Affinities.Add(5);
-            user.Email = "123@123.com";*/
-            //Return a view model
-            return View(new UserData());
+            Response res1 = new Response();
+            res1.ResponseGiven = 50;
+            res1.UserId = id;
+            res1.QuestionId = 23;
+            Response res2 = new Response();
+            res1.ResponseGiven = 74;
+            res1.UserId = id;
+            res1.QuestionId = 13;
+            Response res3 = new Response();
+            res1.ResponseGiven = 25;
+            res1.UserId = id;
+            res1.QuestionId = 33;
+
+            user.Id = id;
+            user.Email = "pepe@gmail.com";
+            user.Responses.Add(res1);
+            user.Responses.Add(res2);
+            user.Responses.Add(res3);
+            //Through the ide we get all the info from the database
+
+            return View(user);
         }
     }
 }
