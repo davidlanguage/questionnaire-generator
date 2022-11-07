@@ -8,7 +8,7 @@ namespace QuestionnaireGenerator.Database
 
         public class DBInteractor : DbContext
         {
-            public DbSet<Question> questions { get; set; }
+            public DbSet<Question> Questions { get; set; }
             
             public string DbPath { get; }
 

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using QuestionnaireGenerator.Database;
 using QuestionnaireGenerator.Models;
 
 namespace QuestionnaireGenerator.Controllers
@@ -8,6 +9,7 @@ namespace QuestionnaireGenerator.Controllers
     {
 
         private Dictionary<int, Question> questions = new Dictionary<int, Question>();
+        private readonly DBInteractor db = new DBInteractor();
 
         public IActionResult Index()
         {
@@ -21,11 +23,9 @@ namespace QuestionnaireGenerator.Controllers
         {
             // check if there is an auth cookie
 
-            return Content(questions[1].QuestionStatement);
-            return Content(questions.ToString());
-            return Content(JsonConvert.SerializeObject(questions[id]));
-            if(!questions.ContainsKey(id)) return NotFound();
-            return Json(questions[id]);
+            Question? q = db.Questions.FindAsync(id).Result;
+            if(q == null) return NotFound();
+            return Json(q);
         }
 
         [HttpPost]
@@ -39,11 +39,13 @@ namespace QuestionnaireGenerator.Controllers
             try
             {
                 Question? q = JsonConvert.DeserializeObject<Question>(raw);
-                questions[q.Id] = q;
+                db.Add<Question>(q);
+                db.SaveChanges();
                 return Created($"/questions/{q.Id}", null);
 
             } catch(Exception e)
             {
+                return Content(e.StackTrace);
                 return BadRequest();
             }
             //if (q != null) 
