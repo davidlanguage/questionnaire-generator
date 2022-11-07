@@ -15,10 +15,10 @@ namespace QuestionnaireGenerator.Controllers
             // TODO hardcoded viewmodel
             Models.Question question = new Models.Question();
             question.QuestionStatement = "¿Hola?";
-            question.AnswerOptions = new List<string>();
-            question.AnswerOptions.Add("A");
-            question.AnswerOptions.Add("B");
-            question.AnswerOptions.Add("C");
+            question.AnswerOptions = new List<Models.Answer>();
+            question.AnswerOptions.Add(new Models.Answer());
+            question.AnswerOptions.Add(new Models.Answer());
+            question.AnswerOptions.Add(new Models.Answer());
 
             return View("NextQuestion", question);
         }

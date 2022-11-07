@@ -1,9 +1,12 @@
-﻿namespace QuestionnaireGenerator.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace QuestionnaireGenerator.Models
 {
+    [Table("Questions")]
     public class Question
     {
         public int Id { get; set; }
         public string QuestionStatement { get; set; } = "Unknown question";
-        public IList<string> AnswerOptions { get; set; } = new List<string>();
+        public List<Answer> AnswerOptions { get; set; } = new List<Answer>();
     }
 }
