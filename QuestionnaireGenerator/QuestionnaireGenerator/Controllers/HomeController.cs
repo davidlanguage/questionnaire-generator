@@ -15,6 +15,7 @@ namespace QuestionnaireGenerator.Controllers
 
         public IActionResult Index()
         {
+            //write your email to start
             return View();
         }
 
