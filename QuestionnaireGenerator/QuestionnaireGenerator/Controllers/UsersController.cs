@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using QuestionnaireGenerator.Database;
 using QuestionnaireGenerator.Models;
 using QuestionnaireGenerator.ViewModels;
 
@@ -7,9 +8,11 @@ namespace QuestionnaireGenerator.Controllers
     [Route("[controller]/{id}")]
     public class UsersController : Controller
     {
+        private readonly DBInteractor db = new DBInteractor();
         [Route("")]
         public IActionResult Index(int id)
         {
+            
             UserData user = new UserData();
             Response res1 = new Response();
             res1.ResponseGiven = 50;
