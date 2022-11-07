@@ -1,2 +1,0 @@
-# questionnaire-generator
-Cool project
