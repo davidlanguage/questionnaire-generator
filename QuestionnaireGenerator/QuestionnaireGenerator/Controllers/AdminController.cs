@@ -17,6 +17,7 @@ namespace QuestionnaireGenerator.Controllers
             // check if there is an auth cookie
 
             // send the specific question to the admin
+            
             return Content("GET the question with id= ${id}");
         }
 
