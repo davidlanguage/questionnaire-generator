@@ -7,8 +7,6 @@ namespace QuestionnaireGenerator.Controllers
 {
     public class AdminController : Controller
     {
-
-        private Dictionary<int, Question> questions = new Dictionary<int, Question>();
         private readonly DBInteractor db = new DBInteractor();
 
         public IActionResult Index()
@@ -23,7 +21,7 @@ namespace QuestionnaireGenerator.Controllers
         {
             // check if there is an auth cookie
 
-            Question? q = db.Questions.FindAsync(id).Result;
+            Question? q = db.Questions.Find(id);
             if(q == null) return NotFound();
             return Json(q);
         }
@@ -39,13 +37,16 @@ namespace QuestionnaireGenerator.Controllers
             try
             {
                 Question? q = JsonConvert.DeserializeObject<Question>(raw);
+                foreach(Answer a in q.AnswerOptions)
+                {
+                    db.Add(a);
+                }
                 db.Add<Question>(q);
                 db.SaveChanges();
                 return Created($"/questions/{q.Id}", null);
 
             } catch(Exception e)
             {
-                return Content(e.StackTrace);
                 return BadRequest();
             }
             //if (q != null) 
@@ -57,10 +58,8 @@ namespace QuestionnaireGenerator.Controllers
         {
             // check if there is an auth cookie
 
-            if (questions.ContainsKey(id)) return BadRequest();
-            questions.Remove(id);
-
-            return Ok() ;
+            db.Remove(id);
+            return Ok();
         }
 
         /*

@@ -1,4 +1,4 @@
-﻿@model QuestionnaireGenerator.ViewModels.UserData
+﻿@model UserData
 
 <h1>User info of @Model.Id</h1>
 <p>User Email : @Model.Email</p>
@@ -11,9 +11,3 @@
     
 }
 <h2>User Affinities : </h2>
-@{
-    for (int i = 0; i < Model.Affinities.Count; i++)
-    {
-        <p>@Affinity.AFINNITYVALUES[i] has @Model.Affinities[i]</p>
-    }
-}

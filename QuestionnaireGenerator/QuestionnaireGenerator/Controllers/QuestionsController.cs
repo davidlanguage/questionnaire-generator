@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using QuestionnaireGenerator.ViewModels;
 using System.Diagnostics;
 
 namespace QuestionnaireGenerator.Controllers

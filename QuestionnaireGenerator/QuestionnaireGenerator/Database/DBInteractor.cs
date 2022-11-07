@@ -7,10 +7,13 @@ namespace QuestionnaireGenerator.Database
 {
 
         public class DBInteractor : DbContext
-        {
-            public DbSet<Question> Questions { get; set; }
-            
-            public string DbPath { get; }
+    {
+        public DbSet<Question> Questions { get; set; }
+        public DbSet<Answer> Answers { get; set; }
+        public DbSet<UserData> Users { get; set; }
+        public DbSet<Response> Responses { get; set; }
+
+        public string DbPath { get; }
 
             public DBInteractor()
             {
