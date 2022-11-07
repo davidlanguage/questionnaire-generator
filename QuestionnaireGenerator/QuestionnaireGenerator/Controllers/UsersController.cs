@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using QuestionnaireGenerator.Database;
 using QuestionnaireGenerator.Models;
-using QuestionnaireGenerator.ViewModels;
 
 namespace QuestionnaireGenerator.Controllers
 {
