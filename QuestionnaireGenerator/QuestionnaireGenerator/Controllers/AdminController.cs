@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using QuestionnaireGenerator.Models;
 
 namespace QuestionnaireGenerator.Controllers
@@ -20,25 +21,50 @@ namespace QuestionnaireGenerator.Controllers
         {
             // check if there is an auth cookie
 
+            return Content(questions[1].QuestionStatement);
+            return Content(questions.ToString());
+            return Content(JsonConvert.SerializeObject(questions[id]));
             if(!questions.ContainsKey(id)) return NotFound();
             return Json(questions[id]);
         }
 
         [HttpPost]
         [Route("[controller]/questions")]
-        public IActionResult PostSpecificQuestion(Models.Question q)
+        public IActionResult PostSpecificQuestionAsync()
+        {
+
+            // check if there is an auth cookie
+
+            String raw = new StreamReader(HttpContext.Request.Body).ReadToEndAsync().Result;
+            try
+            {
+                Question? q = JsonConvert.DeserializeObject<Question>(raw);
+                questions[q.Id] = q;
+                return Created($"/questions/{q.Id}", null);
+
+            } catch(Exception e)
+            {
+                return BadRequest();
+            }
+            //if (q != null) 
+        }
+
+        [HttpDelete]
+        [Route("[controller]/questions/{id}")]
+        public IActionResult DeleteSpecificQuestion(int id)
         {
             // check if there is an auth cookie
 
-            if(questions.ContainsKey(q.Id)) return BadRequest();
-            questions[q.Id] = q;
-   
-            return CreatedAtRoute("GetSpecificQuestion", q.Id);
+            if (questions.ContainsKey(id)) return BadRequest();
+            questions.Remove(id);
+
+            return Ok() ;
         }
 
+        /*
         [HttpPatch]
         [Route("[controller]/questions/{id}")]
-        public IActionResult PatchSpecificQuestion(int id)
+        public IActionResult PatchSpecificQuestion(int id, Question q)
         {
             // check if there is an auth cookie
 
@@ -50,5 +76,6 @@ namespace QuestionnaireGenerator.Controllers
 
             return Ok();
         }
+        */
     }
 }
