@@ -4,9 +4,9 @@
 <p>User Email : @Model.Email</p>
 <h2>User Responses : </h2>
 @{
-    foreach (var response in Model.Responses)
+    for (int i = 0; i < Model.Responses.Count;i++)
     {
-        <p>@response</p>
+        <p>@Model.Responses[i].ResponseGiven</p>
     }
     
 }
