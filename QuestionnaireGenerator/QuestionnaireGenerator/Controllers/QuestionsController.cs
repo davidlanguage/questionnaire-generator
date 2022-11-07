@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using QuestionnaireGenerator.ViewModels;
 
 namespace QuestionnaireGenerator.Controllers
 {
@@ -8,9 +9,15 @@ namespace QuestionnaireGenerator.Controllers
         [Route("[controller]/{userId}")]
         public IActionResult GetQuestion()
         {
+            NextQuestion question = new NextQuestion();
+            question.QuestionStatement = "¿Hola?";
+            question.AnswerOptions = new List<string>();
+            question.AnswerOptions.Add("A");
+            question.AnswerOptions.Add("B");
+            question.AnswerOptions.Add("C");
             //display the question
             //Question q = new Question();
-            return Content("${0} sees the next question", "pepe");
+            return View("NextQuestion", question);
         }
 
         [HttpPost]
@@ -20,6 +27,8 @@ namespace QuestionnaireGenerator.Controllers
             // send the answer to the database
             // display the next question
             // if no more questions, display results
+            var req = Request.Body;
+            Console.WriteLine(req);
             return View();
         }
 

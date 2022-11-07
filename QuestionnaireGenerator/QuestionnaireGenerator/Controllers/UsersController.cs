@@ -3,7 +3,7 @@
 namespace QuestionnaireGenerator.Controllers
 {
     [Route("[controller]/{id}")]
-    public class UserController : Controller
+    public class UsersController : Controller
     {
         public IActionResult Index(int id)
         {
